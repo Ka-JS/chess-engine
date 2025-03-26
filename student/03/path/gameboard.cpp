@@ -69,7 +69,26 @@ bool GameBoard::isGameOver() const{
 // Returns true, if both the given locations are valid.
 bool GameBoard::isValidLocations(const Location& start,
                                  const Location& destination) const{
+    if (destination.x >= COLUMNS or destination.y >= ROWS or destination.x < 0 or destination.y < 0) {
+        return false;
+    }
 
+    if (start.x >= COLUMNS or start.y >= ROWS or start.x < 0 or start.y < 0) {
+        return false;
+    }
+
+    if (board[start.y][start.x] == nullptr or *board[start.y][start.x] == 'o') {
+        return false;
+    }
+
+    if (board[destination.y][destination.x] == nullptr or *board[destination.y][destination.x] != 'o'
+        or *board[destination.y][destination.x] == 'R' or *board[destination.y][destination.x] == 'G') {
+        return false;
+    }
+
+    if (start == destination) return false;
+
+    return true;
 }
 
 // If possible, move a button from the start location to the destination
