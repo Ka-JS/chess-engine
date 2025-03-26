@@ -1,5 +1,6 @@
 #include "gameboard.hh"
 #include <iostream>
+#include <cstdlib>
 
 using namespace std;
 
@@ -96,5 +97,126 @@ bool GameBoard::isValidLocations(const Location& start,
 // Return true, if move is possible, i.e. if there is a path between
 // the given locations.
 bool GameBoard::move(const Location& start, const Location& destination){
+    if(!isValidLocations(start, destination)){
+        return false;
+    }
 
+    // pure horizontal path
+    if (start.y == destination.y){
+        unsigned int minX, maxX;
+        if (start.x < destination.x){
+            minX = start.x;
+            maxX = destination.x;
+        }else{
+            minX = destination.x;
+            maxX = start.x;
+        }
+        for (unsigned int x = minX +1; x < maxX; x++){
+            if (board[start.y][x] == nullptr or *board[start.y][x] != 'o'){
+                return false;
+            }
+        }
+    }
+
+    //moves on different rows, we do a three part path
+
+    else{
+        bool found = false;
+        // finding the middle column
+        for (unsigned int c = 0; c < COLUMNS; c++){
+            bool seg1 = true, seg2 = true, seg3 = true;
+
+            // segment 1 (seg1) moving horizontally to the middle column
+            {
+                unsigned int minX, maxX;
+                if (start.x < c) {
+                    minX = start.x;
+                    maxX = c;
+                } else {
+                    minX = c;
+                    maxX = start.x;
+                }
+                for (unsigned int x = minX + 1; x < maxX; x++) {
+                    if (board[start.y][x] == nullptr or *board[start.y][x] != 'o') {
+                        seg1 = false;
+                        break;
+                    }
+                }
+
+                if (c != start.x ){
+                    if (board[start.y][c] == nullptr or *board[start.y][c] != 'o')
+                        seg1 = false;
+                }
+
+            }
+            // segment 2 (seg 2) moving vertically to the correct row
+            {
+                unsigned int minY, maxY;
+                if (start.y < destination.y) {
+                    minY = start.y;
+                    maxY = destination.y;
+                } else {
+                    minY = destination.y;
+                    maxY = start.y;
+                }
+                for (unsigned int y = minY + 1; y < maxY; y++) {
+                    if (board[y][c] == nullptr or *board[y][c] != 'o') {
+                        seg2 = false;
+                        break;
+                    }
+                }
+
+            }
+            // segment 3 (seg 3) moving horizontally to the correct column (if needed)
+            {
+                unsigned int minX, maxX;
+                if (c < destination.x) {
+                    minX = c;
+                    maxX = destination.x;
+                } else {
+                    minX = destination.x;
+                    maxX = c;
+                }
+                for (unsigned int x = minX + 1; x < maxX; x++) {
+                    if (board[destination.y][x] == nullptr or *board[destination.y][x] != 'o') {
+                        seg3 = false;
+                        break;
+                    }
+                }
+
+                if (c != destination.x ){
+                    if (board[destination.y][c] == nullptr or *board[destination.y][c] != 'o')
+                        seg3 = false;
+                }
+            }
+            if (seg1 && seg2 && seg3) {
+                found = true;
+                break;
+            }
+        }
+        if (!found)
+            return false;
+    }
+
+    // move the button and make the previous spot an empty spot
+    board[destination.y][destination.x] = std::move(board[start.y][start.x]);
+    board[start.y][start.x] = make_unique<char>('o');
+
+    return true;
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
