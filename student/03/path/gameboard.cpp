@@ -60,7 +60,18 @@ void GameBoard::print() const{
 // Return true, if the game is over, i.e. if all red buttons are on the
 // top row and all green buttons are on the bottom row.
 bool GameBoard::isGameOver() const{
+    for (unsigned int col = 0; col < COLUMNS; col++){
+        if (*board[0][col] == 'o' or *board[0][col] == 'G'){
+            return false; // returns false if top row has o or G
+        }
+    }
+    for (unsigned int col = 0; col < COLUMNS; col++){
+        if (*board[ROWS-1][col] == 'o' or *board[ROWS-1][col] == 'R'){
+            return false; // returns false if bottom row has o or R
+        }
+    }
 
+    return true;
 }
 
 // Check the validity of given locations. To be valid, a location must be
@@ -70,11 +81,11 @@ bool GameBoard::isGameOver() const{
 // Returns true, if both the given locations are valid.
 bool GameBoard::isValidLocations(const Location& start,
                                  const Location& destination) const{
-    if (destination.x >= COLUMNS or destination.y >= ROWS or destination.x < 0 or destination.y < 0) {
+    if (destination.x >= COLUMNS or destination.y >= ROWS) {
         return false;
     }
 
-    if (start.x >= COLUMNS or start.y >= ROWS or start.x < 0 or start.y < 0) {
+    if (start.x >= COLUMNS or start.y >= ROWS) {
         return false;
     }
 
