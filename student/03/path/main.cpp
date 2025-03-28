@@ -13,13 +13,19 @@
  * button by 'R', empty hole by 'o', and unused position by empty space.
  *
  * Program author ( Fill with your own info )
- * Name: Teemu Teekkari
- * Student number: 123456
- * UserID: teekkart ( Necessary due to gitlab folder naming. )
- * E-Mail: teemu.teekkari@tuni.fi
+ * Name: Kalle Salminen
+ * Student number: 152225746
+ * UserID: mnkasa
+ * E-Mail: kalle.salminen@tuni.fi
  * Feedback language (fi/en): fi
  *
  * Notes about the program and it's implementation:
+ * - The game board is a 2D vector.
+ * - The GameBoard handles move checks and makes sure players stay within the board.
+ * - The move function checks if a move is legal before updating the board.
+ * - The program is structured into separate files for better organization.
+ * - Error handling is included to prevent invalid moves.
+ * - Best score I got was 33.
  *
  * */
 

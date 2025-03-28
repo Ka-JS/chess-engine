@@ -5,7 +5,8 @@ CONFIG -= qt
 
 SOURCES += \
         gameboard.cpp \
-        main.cpp
+        main.cpp \
+        unit_tests/tst_pathtest.cpp
 
 HEADERS += \
     gameboard.hh

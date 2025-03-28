@@ -8,7 +8,7 @@ using namespace std;
 // Constructor
 GameBoard::GameBoard()
 {
-
+    initialFill();
 }
 
 // Destructor
@@ -215,19 +215,3 @@ bool GameBoard::move(const Location& start, const Location& destination){
 
     return true;
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
