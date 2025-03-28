@@ -19,16 +19,16 @@ GameBoard::~GameBoard(){}
 void GameBoard::initialFill(){
     for (unsigned int row = 0; row < ROWS; ++row) {
         for (unsigned int col = 0; col < COLUMNS; ++col) {
-            board[row][col] = nullptr;
+            board[row][col] = nullptr; // Set all locations as empty
         }
     }
     for (unsigned int col = 0; col < COLUMNS; ++col) {
-        board[0][col] = make_unique<char>('G');
+        board[0][col] = make_unique<char>('G'); //Green at the top
     }
     for (unsigned int col = 0; col < COLUMNS; ++col) {
-        board[ROWS - 1][col] = make_unique<char>('R');
+        board[ROWS - 1][col] = make_unique<char>('R'); //Red on the bottom
     }
-    board[1][1] = make_unique<char>('o');
+    board[1][1] = make_unique<char>('o'); //placing the 'o' buttons
     board[2][1] = make_unique<char>('o');
     board[2][2] = make_unique<char>('o');
     board[3][1] = make_unique<char>('o');
@@ -39,15 +39,15 @@ void GameBoard::print() const{
     cout << "===============" << endl;
     cout << "|   |";
     for (unsigned int col = 0; col < COLUMNS; ++col){
-        cout << " " << col+1;
+        cout << " " << col+1; //column numbers
     }
     cout << " |" << endl << "---------------" << endl;
 
     for (unsigned int row = 0; row < ROWS; ++row){
-        cout << "| " << row+1 << " |";
+        cout << "| " << row+1 << " |"; //row numbers
         for (unsigned int col = 0; col < COLUMNS; ++col) {
             if (board[row][col] != nullptr) {
-                cout << " " << *board[row][col];
+                cout << " " << *board[row][col]; //buttons (G,R,o)
             } else {
                 cout << "  ";
             }
@@ -71,7 +71,7 @@ bool GameBoard::isGameOver() const{
         }
     }
 
-    return true;
+    return true; //Game over if no 'o' or 'G' on top and no 'o' or 'R' on bottom
 }
 
 // Check the validity of given locations. To be valid, a location must be
@@ -82,23 +82,26 @@ bool GameBoard::isGameOver() const{
 bool GameBoard::isValidLocations(const Location& start,
                                  const Location& destination) const{
     if (destination.x >= COLUMNS or destination.y >= ROWS) {
-        return false;
+        return false; // destination not within boundaries
     }
 
     if (start.x >= COLUMNS or start.y >= ROWS) {
-        return false;
+        return false; // start not within boundaries
     }
 
-    if (board[start.y][start.x] == nullptr or *board[start.y][start.x] == 'o') {
-        return false;
+    if (board[start.y][start.x] == nullptr or
+       *board[start.y][start.x] == 'o') {
+        return false; //Start location must contain a valid button
     }
 
-    if (board[destination.y][destination.x] == nullptr or *board[destination.y][destination.x] != 'o'
-        or *board[destination.y][destination.x] == 'R' or *board[destination.y][destination.x] == 'G') {
-        return false;
+    if (board[destination.y][destination.x] == nullptr or
+       *board[destination.y][destination.x] != 'o' or
+       *board[destination.y][destination.x] == 'R' or
+       *board[destination.y][destination.x] == 'G') {
+        return false; // Destination must be empty
     }
 
-    if (start == destination) return false;
+    if (start == destination) return false;// Start and destination cannot be the same
 
     return true;
 }
@@ -109,7 +112,7 @@ bool GameBoard::isValidLocations(const Location& start,
 // the given locations.
 bool GameBoard::move(const Location& start, const Location& destination){
     if(!isValidLocations(start, destination)){
-        return false;
+        return false; // return false if the move wasnt valid
     }
 
     // pure horizontal path
@@ -124,7 +127,7 @@ bool GameBoard::move(const Location& start, const Location& destination){
         }
         for (unsigned int x = minX +1; x < maxX; x++){
             if (board[start.y][x] == nullptr or *board[start.y][x] != 'o'){
-                return false;
+                return false; //if path blocked
             }
         }
     }
@@ -149,14 +152,14 @@ bool GameBoard::move(const Location& start, const Location& destination){
                 }
                 for (unsigned int x = minX + 1; x < maxX; x++) {
                     if (board[start.y][x] == nullptr or *board[start.y][x] != 'o') {
-                        seg1 = false;
+                        seg1 = false; //seg 1 = blocked
                         break;
                     }
                 }
 
                 if (c != start.x ){
                     if (board[start.y][c] == nullptr or *board[start.y][c] != 'o')
-                        seg1 = false;
+                        seg1 = false; //seg 1 = blocked at column c
                 }
 
             }
@@ -172,7 +175,7 @@ bool GameBoard::move(const Location& start, const Location& destination){
                 }
                 for (unsigned int y = minY + 1; y < maxY; y++) {
                     if (board[y][c] == nullptr or *board[y][c] != 'o') {
-                        seg2 = false;
+                        seg2 = false; //seg 2 = blocked
                         break;
                     }
                 }
@@ -190,14 +193,14 @@ bool GameBoard::move(const Location& start, const Location& destination){
                 }
                 for (unsigned int x = minX + 1; x < maxX; x++) {
                     if (board[destination.y][x] == nullptr or *board[destination.y][x] != 'o') {
-                        seg3 = false;
+                        seg3 = false; //seg 3 = blocked
                         break;
                     }
                 }
 
                 if (c != destination.x ){
                     if (board[destination.y][c] == nullptr or *board[destination.y][c] != 'o')
-                        seg3 = false;
+                        seg3 = false; //seg 3 = blocked at column c
                 }
             }
             if (seg1 && seg2 && seg3) {
