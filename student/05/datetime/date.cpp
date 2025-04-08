@@ -13,17 +13,17 @@ void Date::throwIllegalDate(int day, int month, int year) const {
 }
 
 bool isLeapYear(int year) {
-    return (year % 4 == 0 && year % 100 != 0) || (year % 400 == 0);
+    return (year % 4 == 0 && year % 100 != 0) or (year % 400 == 0);
 }
 
 Date::Date(int year, int month, int day) {
-    if (year < 1000 || year > 9999) {
+    if (year < 1000 or year > 9999) {
         throwIllegalDate(day, month, year);
     }
-    if (month < 1 || month > 12) {
+    if (month < 1 or month > 12) {
         throwIllegalDate(day, month, year);
     }
-    if (day < 1 || day > 31) {
+    if (day < 1 or day > 31) {
         throwIllegalDate(day, month, year);
     }
     if (month == 2) {
@@ -34,8 +34,11 @@ Date::Date(int year, int month, int day) {
             throwIllegalDate(day, month, year);
         }
     }
-}
 
+    year_ = year;
+    month_ = month;
+    day_ = day;
+}
 Date::~Date(){}
 
 int Date::getYear() const
@@ -53,8 +56,7 @@ int Date::getDay() const
     return day_;
 }
 
-string Date::toString() const
-{
+string Date::toString() const {
     ostringstream oss;
     oss << setfill('0') << setw(2) << day_ << "."
         << setfill('0') << setw(2) << month_ << "." << year_;
