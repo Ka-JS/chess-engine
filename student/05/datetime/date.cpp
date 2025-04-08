@@ -1,0 +1,55 @@
+#include "date.hh"
+#include "dateexception.hh"
+#include <sstream>
+#include <iomanip>
+
+void Date::throwIllegalDate(int day, int month, int year) const {
+    ostringstream oss;
+    oss << "Illegal date " << setfill('0') << setw(2) << day << "."
+        << setfill('0') << setw(2) << month << "." << year;
+    string message = oss.str();
+    const char* c_message = message.c_str();
+    throw DateException(c_message);
+}
+
+Date::Date(int year, int month, int day)
+{
+    if (year < 1000 or year >9999){
+        throwIllegalDate(day, month, year);
+    }
+    if (month < 1 or month > 12){
+        throwIllegalDate(day, month, year);
+    }
+    if (day < 1 or day > 31) {
+        throwIllegalDate(day, month, year);
+    }
+
+    year_ = year;
+    month_ = month;
+    day_ = day;
+}
+
+Date::~Date(){}
+
+int Date::getYear() const
+{
+    return year_;
+}
+
+int Date::getMonth() const
+{
+    return month_;
+}
+
+int Date::getDay() const
+{
+    return day_;
+}
+
+string Date::toString() const
+{
+    ostringstream oss;
+    oss << setfill('0') << setw(2) << day_ << "."
+        << setfill('0') << setw(2) << month_ << "." << year_;
+    return oss.str();
+}
