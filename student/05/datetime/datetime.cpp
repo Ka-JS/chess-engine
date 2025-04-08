@@ -11,6 +11,7 @@ void DateTime::throwIllegalTime(int hour, int minute, int second) const {
     const char* c_message = message.c_str();
     throw DateException(c_message);
 }
+
 DateTime::DateTime(int year, int month, int day, int hour, int minute, int second)
         : Date(year, month, day){
 
