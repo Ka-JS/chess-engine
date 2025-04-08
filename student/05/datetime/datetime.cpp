@@ -5,8 +5,10 @@
 
 void DateTime::throwIllegalTime(int hour, int minute, int second) const {
     ostringstream oss;
-    oss << "Illegal time " << setfill('0') << setw(2) << hour << ":"
-        << minute << ":" << second;
+    oss << "Illegal time "
+        << setfill('0') << setw(2) << hour << ":"
+        << setfill('0') << setw(2) << minute << ":"
+        << setfill('0') << setw(2) << second;
     string message = oss.str();
     const char* c_message = message.c_str();
     throw DateException(c_message);
