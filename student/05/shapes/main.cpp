@@ -54,6 +54,7 @@ int main()
     string file_name = "";
     getline(cin, file_name);
     ifstream file(file_name);
+    cout << endl;
     if(not file)
     {
         cout << "File not found" << endl;
