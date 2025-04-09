@@ -11,6 +11,6 @@ Cockatoo::~Cockatoo()
 }
 
 void Cockatoo::vocalize(std::ostream& output) const {
-    output << "Lal laa la laa!" << std::endl;
+    output << "Kee-ow kee-ow!" << std::endl;
 }
 
