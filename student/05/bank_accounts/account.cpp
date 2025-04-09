@@ -21,7 +21,7 @@ void Account::save_money(double amount)
 
 bool Account::take_money(double amount)
 {
-    if (balance_ >= amount){
+    if (balance_ >= amount) {
         balance_ -= amount;
         return true;
     }
