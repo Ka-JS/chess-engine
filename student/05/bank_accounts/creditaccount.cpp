@@ -13,14 +13,21 @@ CreditAccount::~CreditAccount()
 
 bool CreditAccount::take_money(double amount)
 {
-    if (balance_ - amount >= -credit_limit_) {
+    if (balance_ >= amount) {
         balance_ -= amount;
         return true;
     } else {
-        cout << "ERROR! Cannot take money: credit limit overflow" << endl;
-        return false;
+        double extra = amount - balance_;
+        if (extra < credit_limit_) {
+            balance_ -= amount;
+            return true;
+        } else {
+            cout << "ERROR! Cannot take money: credit limit overflow" << endl;
+            return false;
+        }
     }
 }
+
 
 void CreditAccount::print() const
 {
