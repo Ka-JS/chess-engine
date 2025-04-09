@@ -13,7 +13,7 @@ CreditAccount::~CreditAccount()
 
 bool CreditAccount::take_money(double amount)
 {
-    if (balance_ - amount > -credit_limit_){
+    if (balance_ - amount >= -credit_limit_) {
         balance_ -= amount;
         return true;
     } else {
