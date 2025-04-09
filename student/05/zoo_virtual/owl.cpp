@@ -9,5 +9,5 @@ Owl::~Owl()
 }
 
 void Owl::vocalize(std::ostream& output) const {
-    output << "Huu huu!" << std::endl;
+    output << "Hoo hoo!" << std::endl;
 }
