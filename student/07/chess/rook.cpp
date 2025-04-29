@@ -1,73 +1,74 @@
 #include "rook.hh"
-#include <set>
+
+/**
+ * @brief Constructor for rook
+ * @param col The color of the rook
+ */
 
 Rook::Rook(ChessColor col):  ChessPiece(col, PieceType::ROOK, "rook")
 {
 
 }
 
-set<Coord> Rook::get_allowed_moves(const ChessBoard &board) const
+/**
+ * @brief Get the allowed moves for the rook
+ * @param board The current state of the chess board
+ * @return coordinates where the rook can move
+ */
+
+set<Coord> Rook::get_allowed_moves(ChessBoard const& board) const
 {
     set<Coord> moves;
-    Coord current = get_position();
+    auto [row, col] = get_position();
 
     // movement up
-    for (int row = current.row -1; row >=0; --row){
-        Coord target ={row, current.col};
-        auto piece = board.get_piece_at(target);
-        if (piece == nullptr){
-            moves.insert(target);
-        }else{
-            if (piece->get_color() != get_color()) {
-                moves.insert(target);
-            }
+    for (int r = row -1; r >=0; --r) {
+        Coord dest = {r, col};
+        check_move(board, dest, moves);
+        if (board.coord_in_bounds(dest) and board.get_piece_at(dest) != nullptr) {
             break;
         }
     }
 
-    //movement down
-    for (int row = current.row +1; row <0; ++row){
-        Coord target ={row, current.col};
-        auto piece = board.get_piece_at(target);
-        if (piece == nullptr){
-            moves.insert(target);
-        }else{
-            if (piece->get_color() != get_color()) {
-                moves.insert(target);
-            }
+    // movement down
+    for (int r = row +1; r <8; ++r) {
+        Coord dest = {r, col};
+        check_move(board, dest, moves);
+        if (board.coord_in_bounds(dest) and board.get_piece_at(dest) != nullptr) {
             break;
         }
     }
 
-    //movement left
-    for (int col = current.col -1; col >=0; --col) {
-        Coord target = {current.row, col};
-        auto piece = board.get_piece_at(target);
-        if (piece == nullptr) {
-            moves.insert(target);
-        }else{
-            if (piece->get_color() != get_color()) {
-                moves.insert(target);
-            }
+    // movement left
+    for (int c = col -1; c >=0; --c) {
+        Coord dest = {row, c};
+        check_move(board, dest, moves);
+        if (board.coord_in_bounds(dest) and board.get_piece_at(dest) != nullptr) {
             break;
         }
     }
-    //movement right
-    for (int col = current.col +1; col <8; ++col) {
-        Coord target = {current.row, col};
-        auto piece = board.get_piece_at(target);
-        if (piece == nullptr) {
-            moves.insert(target);
-        }else{
-            if (piece->get_color() != get_color()) {
-                moves.insert(target);
-            }
+
+    // movement right
+    for (int c = col +1; c <8; ++c) {
+        Coord dest = {row, c};
+        check_move(board, dest, moves);
+        if (board.coord_in_bounds(dest) and board.get_piece_at(dest) != nullptr) {
             break;
         }
     }
 
     return moves;
+}
 
+/**
+ * @brief Check if a move to the destination is valid
+ */
 
-
+void Rook::check_move(const ChessBoard& board, const Coord& dest, set<Coord>& moves) const {
+    if (board.coord_in_bounds(dest)) {
+        auto piece = board.get_piece_at(dest);
+        if (piece == nullptr or piece->get_color() != get_color()) {
+            moves.insert(dest);
+        }
+    }
 }

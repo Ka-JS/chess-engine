@@ -18,6 +18,7 @@ public:
     virtual set<Coord> get_allowed_moves(ChessBoard const& board) const override;
 
 private:
+    void check_move(const ChessBoard &board, const Coord &dest, set<Coord> &moves) const;
 
 };
 
