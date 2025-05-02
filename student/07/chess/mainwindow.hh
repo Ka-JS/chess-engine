@@ -28,25 +28,26 @@ public:
     ~MainWindow();
 
 private slots:
-    void square_click(int index); // Handles clicks on squares
-    void restart_game_button();   // Restarts the game
-    void quit_game_button();      // Quits the game
+    void square_click(int index);
+    void restart_game_button();
+    void quit_game_button();
 
 private:
-    QWidget* central_widget_;           // Central widget for the main window
-    QGridLayout* layout_;               // Grid layout for the board and widgets
-    QLabel* info_label_;                // Label to show whose turn it is
+    QWidget* central_widget_;           // Main window widget
+    QGridLayout* layout_;               // Board layout
+    QLabel* info_label_;                // Turn info label
     QPushButton* restart_button_;       // Restart button
     QPushButton* quit_button_;          // Quit button
-    vector<QPushButton*> squares_; // Vector of square buttons (8x8 = 64)
-    set<Coord> available_moves_;   // Available moves for the selected piece
-    Coord coordinates_;                 // Selected piece coordinates
+    vector<QPushButton*> squares_;      // Square buttons
+    set<Coord> available_moves_;        // Selected piece moves
+    Coord coordinates_;                 // Selected piece position
     Chess game_;                        // Game logic
 
-    void ChessBoard();           // Creates the chessboard
-    bool is_marked(Coord coord);        // Checks if a square is marked (selected)
-    void update_board();                // Updates the board visuals
-    QString get_piece_icon(Coord coord); // Gets the icon path for a piece
+    void ChessBoard();                  // Set up the chessboard
+    bool is_marked(Coord coord);        // Check if a square is selected
+    void update_board();                // Refresh the board
+    QString get_piece_icon(Coord coord);// Get piece icon path
+
 };
 
 #endif // MAINWINDOW_HH

@@ -17,12 +17,17 @@ MainWindow::MainWindow(QWidget* parent) :
     update_board();
 }
 
-// destructor
+/**
+ * @brief Destructor
+ */
 MainWindow::~MainWindow()
 {
 }
 
-// When you click a square on the board
+/**
+ * @brief When you click a square on the board
+ * @param n the location of the clicked square.
+ */
 void MainWindow::square_click(int n)
 {
     // If the game is over, do nothing
@@ -68,7 +73,9 @@ void MainWindow::square_click(int n)
     }
 }
 
-// Make the chessboard and buttons
+/**
+ * @brief Make the chessboard and buttons.
+ */
 void MainWindow::ChessBoard() {
     central_widget_ = new QWidget(this);
     QVBoxLayout* main_layout = new QVBoxLayout(central_widget_);
@@ -77,7 +84,7 @@ void MainWindow::ChessBoard() {
     QGridLayout* board_layout = new QGridLayout(chessboard_widget);
     board_layout->setSpacing(0);
     board_layout->setContentsMargins(0, 0, 0, 0);
-    chessboard_widget->setFixedSize(480, 480); // 8 squares x 60 pixels = 480
+    chessboard_widget->setFixedSize(480, 480);
 
     squares_ = vector<QPushButton*>(64, nullptr);
     coordinates_ = NULL_COORD;
@@ -85,7 +92,7 @@ void MainWindow::ChessBoard() {
     setCentralWidget(central_widget_);
     info_label_->setAlignment(Qt::AlignCenter);
 
-    // Make all squares
+    // Create squares
     for (int row =0; row < BOARD_SIZE; ++row) {
         for (int col = 0; col < BOARD_SIZE; ++col) {
             int index = row * BOARD_SIZE +col;
@@ -97,14 +104,13 @@ void MainWindow::ChessBoard() {
         }
     }
 
-    // Put the buttons
+    // Layout for buttons
     QHBoxLayout* button_layout = new QHBoxLayout();
     restart_button_ = new QPushButton("Restart", this);
     quit_button_ = new QPushButton("Quit", this);
     button_layout->addWidget(restart_button_);
     button_layout->addWidget(quit_button_);
 
-    // Put everything in the window
     main_layout->addWidget(info_label_);
     main_layout->addWidget(chessboard_widget);
     main_layout->addLayout(button_layout);
@@ -113,7 +119,9 @@ void MainWindow::ChessBoard() {
     connect(quit_button_, &QPushButton::clicked, this, &MainWindow::quit_game_button);
 }
 
-// Show the pieces and highlight moves on the board
+/**
+ * @brief Update the board by showing pieces and highlighting available moves
+ */
 void MainWindow::update_board() {
     for (int row =0; row < BOARD_SIZE; ++row) {
         for (int col = 0; col < BOARD_SIZE; ++col) {
@@ -143,7 +151,9 @@ void MainWindow::update_board() {
     }
 }
 
-// Check if a square is picked
+/**
+ * @brief Check if a square is picked
+ */
 bool MainWindow::is_marked(Coord coord) {
     if (coordinates_ == NULL_COORD) {
         return false;
@@ -154,7 +164,11 @@ bool MainWindow::is_marked(Coord coord) {
     return false;
 }
 
-// Get the picture for a square
+/**
+ * @brief Get the icon path for a piece at a given square
+ * @param coord Coordinates of the square
+ * @return Path to the piece icon
+ */
 QString MainWindow::get_piece_icon(Coord coord) {
     auto piece = game_.get_board().get_piece_at(coord);
     QString square_color;
@@ -176,7 +190,9 @@ QString MainWindow::get_piece_icon(Coord coord) {
     return QString(":pieces/%1-%2-on-%3.png").arg(piece_color).arg(piece_name).arg(square_color);
 }
 
-// Restart button
+/**
+ * @brief Restart button
+ */
 void MainWindow::restart_game_button() {
     game_.start_game(WHITE);
     coordinates_ = NULL_COORD;
@@ -185,7 +201,9 @@ void MainWindow::restart_game_button() {
     update_board();
 }
 
-// Close button
+/**
+ * @brief Quit button
+ */
 void MainWindow::quit_game_button() {
     QApplication::quit();
 }
