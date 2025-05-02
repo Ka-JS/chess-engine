@@ -42,3 +42,6 @@ RESOURCES += \
     chess_icons.qrc
 
 FORMS +=
+
+DISTFILES += \
+    instructions
