@@ -41,5 +41,4 @@ else: unix:!android: target.path = /opt/$${TARGET}/bin
 RESOURCES += \
     chess_icons.qrc
 
-FORMS += \
-    mainwindow.ui
+FORMS +=

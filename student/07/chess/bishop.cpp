@@ -1,6 +1,5 @@
 #include "bishop.hh"
 
-
 /**
  * @brief Constructor for bishop
  * @param col The color of the bishop
