@@ -1,52 +1,41 @@
 #include "timedepositaccount.hh"
+#include <iostream>
 
-TimeDepositAccount::TimeDepositAccount(const string& owner)
-                   : Account(owner), time_deposit_years_(2), days_left_(2*365)
+TimeDepositAccount::TimeDepositAccount(const string& owner) : Account(owner)
 {
-
 }
 
 TimeDepositAccount::~TimeDepositAccount()
 {
-
 }
 
 bool TimeDepositAccount::take_money(double amount)
 {
-    if (days_left_ > 0){
-        cout << "ERROR! Cannot take money: deposit time has not expired" << endl;
+    if (time_deposit_ > 0) {
+        std::cout << "ERROR! Cannot take money: deposit time has not expired" << std::endl;
         return false;
     }
-    if (balance_ >= amount){
-        balance_ -= amount;
-        return true;
-    }
-    return false;
+
+    return  Account::take_money(amount);
 }
+void TimeDepositAccount::spend_time(int time)
+{
+    time_deposit_ -= time;
+}
+
 
 void TimeDepositAccount::print() const
 {
     Account::print();
-    cout << "  ::: Days left : " << days_left_ << endl;
+    cout << "  ::: Days left : " << time_deposit_ << endl;
 }
 
-void TimeDepositAccount::set_times(int years)
+void TimeDepositAccount::set_times(int timeDeposit)
 {
-    time_deposit_years_ = years;
-    days_left_ = years*365;
+    time_deposit_ = timeDeposit * 365;
 }
 
-int TimeDepositAccount::get_time_deposit() const
+int TimeDepositAccount::getTimes() const
 {
-    return time_deposit_years_;
-}
-
-int TimeDepositAccount::get_days_left() const
-{
-    return days_left_;
-}
-
-void TimeDepositAccount::spend_time(int days)
-{
-    days_left_ -= days;
+    return time_deposit_;
 }

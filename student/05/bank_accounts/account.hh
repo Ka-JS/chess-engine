@@ -1,9 +1,7 @@
 #ifndef ACCOUNT_HH
 #define ACCOUNT_HH
-using namespace std;
-#include <string>
-#include <iostream>
 
+#include <string>
 
 class Account
 {
@@ -42,6 +40,9 @@ public:
     void print_iban() const;
     double get_accountBalance() const;
 
+protected:
+    double account_balance;
+
 private:
     // Generates IBAN (based on running_number_ below).
     // Allows no more than 99 accounts.
@@ -53,10 +54,10 @@ private:
     // In other words, running_number_ is a class-wide attribute, there is
     // no own copies of it for each object of the class.
     static int running_number_;
-protected:
-    string owner_;
-    double balance_;
-    string iban_;
+
+    std::string owner_;
+    std::string iban_;
+
 };
 
 #endif // ACCOUNT_HH

@@ -2,20 +2,23 @@
 #define TIMEDEPOSITACCOUNT_HH
 #include "account.hh"
 
+
+using namespace std;
+
 class TimeDepositAccount: public Account
 {
 public:
     TimeDepositAccount(const string& owner);
     virtual ~TimeDepositAccount();
-    virtual bool take_money(double amount) override;
-    virtual void print() const override;
-    void set_times(int years);
-    int get_time_deposit() const;
-    int get_days_left() const;
-    void spend_time(int days);
+    bool virtual take_money(double amount);
+    void virtual print() const;
+    void spend_time(int time);
+    void set_times(int timeDeposit);
+    int getTimes() const;
+
 private:
-    int time_deposit_years_;
-    int days_left_;
+    int time_deposit_;
+
 };
 
 #endif // TIMEDEPOSITACCOUNT_HH

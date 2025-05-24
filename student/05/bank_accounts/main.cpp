@@ -51,14 +51,18 @@ void print_credits(const vector<Account*>& accs)
 void print_deposits(const vector<Account*>& accs)
 {
     cout << "Printing deposits:" << endl;
-    for (auto acc : accs) {
+    for(auto acc : accs)
+    {
         cout << "  Account ";
         acc->print_iban();
         cout << " has time deposit: ";
-        TimeDepositAccount* deposit_ptr = dynamic_cast<TimeDepositAccount*>(acc);
-        if (deposit_ptr) {
-            cout << deposit_ptr->get_days_left() << endl;
-        } else {
+        TimeDepositAccount* credit_ptr = dynamic_cast<TimeDepositAccount*>(acc);
+        if(credit_ptr)
+        {
+            cout << credit_ptr->getTimes() << endl;
+        }
+        else
+        {
             cout << 0 << endl;
         }
     }
