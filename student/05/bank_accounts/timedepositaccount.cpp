@@ -1,6 +1,7 @@
 #include "timedepositaccount.hh"
 
-TimeDepositAccount::TimeDepositAccount(const string& owner): Account(owner)
+TimeDepositAccount::TimeDepositAccount(const string& owner)
+                   : Account(owner), time_deposit_years_(2), days_left_(2*365)
 {
 
 }
