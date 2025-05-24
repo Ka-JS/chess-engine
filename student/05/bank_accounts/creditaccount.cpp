@@ -1,7 +1,7 @@
 #include "creditaccount.hh"
 
 CreditAccount::CreditAccount(const string& owner)
-              : Account(owner), credit_limit_(0)
+              : Account(owner), credit_limit_(100.0)
 {
 
 }
