@@ -40,6 +40,7 @@ public:
 
     // Prints the iban of the account.
     void print_iban() const;
+    double get_accountBalance() const;
 
 private:
     // Generates IBAN (based on running_number_ below).

@@ -4,8 +4,7 @@
 // Initialize the static attribute running_number_
 int Account::running_number_ = 0;
 
-Account::Account(const std::string& owner)
-        : owner_(owner), balance_(0.0), iban_("")
+Account::Account(const std::string& owner): owner_(owner)
 {
     generate_iban();
 }
@@ -21,11 +20,11 @@ void Account::save_money(double amount)
 
 bool Account::take_money(double amount)
 {
-    if (balance_ >= amount) {
-        balance_ -= amount;
-        return true;
+    if (balance_ - amount <0) {
+        return false;
     }
-    return false;
+    balance_ -= amount;
+    return true;
 }
 
 bool Account::transfer_to(Account *other_account, double amount)
@@ -33,11 +32,11 @@ bool Account::transfer_to(Account *other_account, double amount)
     if (other_account == this){
         return true;
     }
-    if (take_money(amount)){
-        other_account->save_money(amount);
-        return true;
+    if (!take_money(amount)){
+        return false;
     }
-    return false;
+    other_account->save_money(amount);
+    return true;
 }
 
 void Account::print() const
@@ -50,8 +49,7 @@ void Account::print_iban() const
     cout << iban_;
 }
 
-
-
+double Account::get_accountBalance() const {return balance_;}
 
 void Account::generate_iban()
 {

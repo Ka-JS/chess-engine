@@ -1,7 +1,6 @@
 #include "timedepositaccount.hh"
 
-TimeDepositAccount::TimeDepositAccount(const string& owner)
-                   : Account(owner), time_deposit_years_(2), days_left_(2*365)
+TimeDepositAccount::TimeDepositAccount(const string& owner): Account(owner)
 {
 
 }
@@ -17,11 +16,7 @@ bool TimeDepositAccount::take_money(double amount)
         cout << "ERROR! Cannot take money: deposit time has not expired" << endl;
         return false;
     }
-    if (balance_ >= amount){
-        balance_ -= amount;
-        return true;
-    }
-    return false;
+    return Account::take_money(amount);
 }
 
 void TimeDepositAccount::print() const
