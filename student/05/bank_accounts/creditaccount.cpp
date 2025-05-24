@@ -1,7 +1,7 @@
 #include "creditaccount.hh"
 
 CreditAccount::CreditAccount(const string& owner)
-              : Account(owner), credit_limit_(100.0)
+              : Account(owner), credit_limit_(0)
 {
 
 }
@@ -13,12 +13,18 @@ CreditAccount::~CreditAccount()
 
 bool CreditAccount::take_money(double amount)
 {
-    if (amount <= balance_ + credit_limit_) {
+    if (balance_ >= amount) {
         balance_ -= amount;
         return true;
     } else {
-        cout << "ERROR! Cannot take money: credit limit overflow" << endl;
-        return false;
+        double extra = amount - balance_;
+        if (extra <= credit_limit_) {
+            balance_ -= amount;
+            return true;
+        } else {
+            cout << "ERROR! Cannot take money: credit limit overflow" << endl;
+            return false;
+        }
     }
 }
 
