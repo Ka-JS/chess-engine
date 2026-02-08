@@ -1,33 +1,28 @@
-Ohjelmointi 3: Rajapinnat, kevät 2025 (periodi 4)
+# Simple Chess Game
 
-Kurssin oppimateriaali: https://plus.tuni.fi/compcs115/spring-2025/
+A simplified chess engine built with **C++** and **Qt**. This project implements core chess mechanics and piece movement logic with an interactive GUI.
 
-Tämä Git-repositorio sisältää kolme hakemistoa (kansiota):
-- examples: henkilökunnan jakamat esimerkkikoodit
-- student: opiskelijan kirjoittamat koodit
-- templates: henkilökunnan jakamat koodipohjat.
+## How to Use
 
-ÄLÄ TEE MITÄÄN MUUTOKSIA examples- TAI templates-HAKEMISTOIHIN!
+1. **Build & Run:** Open the project in Qt Creator and run it.
+2. **Select:** Click on a chess piece to select it.
+3. **Move:** Click on the target square.
+   * Legal moves are highlighted in **red**.
+   * If the move is valid, the piece will move.
+4. **Turns:** White always starts. Players take turns automatically.
 
-ÄLÄ KOSKAAN TEE MITÄÄN MUUTOKSIA GITTIIN WEB-SELAIMEN KAUTTA, VAAN KÄYTÄ
-AINA KOMENTOJA git add, git commit, git push!
-(Kurssilla oletetaan, että olet oppinut nämä komennot edellisellä
-ohjelmointikurssilla.)
+## Supported Features
 
----------------------------------------------------------------
+* **Board:** Standard 8x8 grid.
+* **Pieces:** King, Queen, Rook, Bishop, Knight, Pawn.
+* **Movement:** All pieces follow standard chess movement rules.
+* **Validation:** strict legal move validation (invalid moves are blocked).
 
-Programming 3: Interfaces, spring 2025 (period 4)
+## Limitations (Current Scope)
 
-Study material: https://plus.tuni.fi/compcs115/spring-2025/
+This version is designed to test movement logic and architecture. The following are **not implemented**:
+* Special moves (Castling, En Passant, Pawn Promotion).
+* Check/Checkmate/Stalemate detection.
 
-This Git repository contains three directories (folders):
-- examples: example codes given by course staff
-- student: codes written by a student
-- templates: code templates given by course staff.
-
-DO NOT MAKE ANY MODIFICATIONS IN examples OR templates DIRECTORIES!
-
-DO NOT EVER MAKE ANY MODIFICATIONS IN GIT VIA THE WEB BROWSER, BUT ALWAYS
-USE THE COMMANDS git add, git commit, git push!
-(It is assumed that you have learned these commands in the previous
-programming course.)
+---
+*Created by Kalle Salminen*
